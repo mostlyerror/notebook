@@ -63,7 +63,8 @@ nav a:last-child {
 nav.home .home,
 nav.projects .projects,
 nav.services .services,
-nav.contacts .contacts {
+nav.contacts .contacts,
+nav.two-way-binding .two-way-binding {
   background-color: #e35885;
 }
 
@@ -80,4 +81,3 @@ p b {
   text-transform: uppercase;
   font-size: 18px;
 }
-

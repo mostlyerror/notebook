@@ -5,13 +5,35 @@
   </head>
   <body>
     <div id="main">
-      <nav v-bind:class="active" v-on:click.prevent>
-        <a href="#" class="home" v-on:click="makeActive('home')">Home</a>
-        <a href="#" class="projects" v-on:click="makeActive('projects')">Projects</a>
-        <a href="#" class="services" v-on:click="makeActive('services')">Services</a>
-        <a href="#" class="contacts" v-on:click="makeActive('contacts')">Contact</a>
-      </nav>
+      <header>
+        <nav v-bind:class="active" v-on:click.prevent>
+          <a href="#" class="home" v-on:click="makeActive('home')">Home</a>
+          <a href="#" class="two-way-binding"
+            v-on:click="makeActive('two-way-binding')">Two-Way Binding</a>
+          <a href="#" class="projects" v-on:click="makeActive('projects')">Projects</a>
+          <a href="#" class="services" v-on:click="makeActive('services')">Services</a>
+          <a href="#" class="contacts" v-on:click="makeActive('contacts')">Contact</a>
+        </nav>
+      </header>
+      
       <p>You chose <b>{{active}}</b></p>
+      <div id="content-container">
+        <section id="home" v-if="active === 'home'">
+          home
+        </section>
+        <section id="two-way-binding"  v-if="active === 'two-way-binding'">
+          two-way binding
+        </section>
+        <section id="projects" v-if="active === 'projects'">
+          projects
+        </section>
+        <section id="services" v-if="active === 'services'">
+          services
+        </section>
+        <section id="contacts" v-if="active === 'contacts'">
+          contacts
+        </section>
+    </div>
     </div>
     <script src="app.js"></script>
   </body>

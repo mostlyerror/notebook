@@ -10,4 +10,4 @@ var demo = new Vue({
       this.active = item;
     }
   }
-})
+});
