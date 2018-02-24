@@ -12,7 +12,8 @@ var initialState = {
     { x: 30, y: 30, width: 50, height: 50, color: 'blue' }
   ],
   xDragging: null,
-  yDragging: null
+  yDragging: null,
+  draggingItemId: null
 };
 
 // Define how state changes
@@ -26,7 +27,8 @@ var reducer = function(state, action) {
         canvas: state.canvas,
         items: state.items,
         xDragging: action.xDragging,
-        yDragging: action.yDragging
+        yDragging: action.yDragging,
+        draggingItemId: null
       };
     case 'TRANSLATE_CANVAS':
       return {
@@ -36,14 +38,54 @@ var reducer = function(state, action) {
           },
           item: state.items,
           xDragging: action.xDragging,
-          yDragging: action.yDragging
+          yDragging: action.yDragging,
+          draggingItemId: null
       };
     case 'TRANSLATE_CANVAS_END':
       return {
         canvas: state.canvas,
         items: state.items,
         yDragging: null,
-        yDragging: null
+        yDragging: null,
+        draggingItemId: null
+      };
+    case 'TRANSLATE_ITEM_START':
+      return {
+        canvas: state.canvas,
+        item: state.items,
+        xDragging: action.xDragging,
+        yDragging: action.yDragging,
+        draggingItemId: action.id
+      };
+    case 'TRANSLATE_ITEM':
+      var newItems = state.items.map(function(item) {
+        if (item.id === state.draggingItemId) {
+          return {
+            id: item.id,
+            x: item.x + action.xDragging - state.xDragging,
+            y: item.y + action.yDragging - state.yDragging,
+            width: item.width,
+            height: item.height,
+            color: item.color
+          };
+        } else {
+          return item;
+        }
+      });
+      return {
+        canvas: state.canvas,
+        items: newItems,
+        xDragging: action.xDragging,
+        yDragging: action.yDragging,
+        draggingItemId: state.draggingItemId
+      }
+    case 'TRANSLATE_ITEM_END':
+      return {
+        canvas: state.canvas,
+        items: state.items,
+        xDragging: null,
+        yDragging: null,
+        draggingItemId: null
       };
     default:
       return state;
@@ -69,6 +111,21 @@ var store = Redux.createStore(reducer);
 store.subscribe(draw);
 
 canvas.addEventListener('mousedown', function(event) {
+  var state = store.getState();
+  for (var i = state.items.length - 1; i >= 0; i--) {
+    var item = state.items[i];
+    ctx.beginPath();
+    ctx.rect(item.x, item.y, item.width, item.height);
+    if (ctx.isPointInPath(event.offsetX, event.offsetY)) {
+      store.dispatch({
+        type: 'TRANSLATE_ITEM_START',
+        id: item.id,
+        xDragging: event.offsetX,
+        yDragging: event.offsetY
+      });
+      return;
+    }
+  }
   store.dispatch({
     type: 'TRANSLATE_CANVAS_START',
     xDragging: event.offsetX,
@@ -78,7 +135,13 @@ canvas.addEventListener('mousedown', function(event) {
 
 canvas.addEventListener('mousemove', function(event) {
   var state = store.getState();
-  if (state.xDragging !== null && state.yDragging !== null) {
+  if (state.draggingItemId !== null) {
+    store.dispatch({
+      type: 'TRANSLATE_ITEM',
+      xDragging: event.offsetX,
+      yDragging: event.offsetY
+    });
+  } else if (state.xDragging !== null && state.yDragging !== null) {
     store.dispatch({
       type: 'TRANSLATE_CANVAS',
       xDragging: event.offsetX,
@@ -88,9 +151,16 @@ canvas.addEventListener('mousemove', function(event) {
 }, false);
 
 canvas.addEventListener('mouseup', function(event) {
-  store.dispatch({
-    type: 'TRANSLATE_CANVAS_END'
-  });
+  var state = store.getState();
+  if (state.getDraggingItemId !== null) {
+    store.dispatch({
+      type: 'TRANSLATE_ITEM_END'
+    });
+  } else {
+    store.dispatch({
+      type: 'TRANSLATE_CANVAS_END'
+    });
+  }
 }, false);
 
 // Draw the initial view
