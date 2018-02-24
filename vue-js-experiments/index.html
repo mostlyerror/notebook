@@ -8,21 +8,29 @@
       <header>
         <nav v-bind:class="active" v-on:click.prevent>
           <a href="#" class="home" v-on:click="makeActive('home')">Home</a>
-          <a href="#" class="two-way-binding"
-            v-on:click="makeActive('two-way-binding')">Two-Way Binding</a>
+          <a href="#" class="order-form"
+            v-on:click="makeActive('order-form')">Order Form</a>
           <a href="#" class="projects" v-on:click="makeActive('projects')">Projects</a>
           <a href="#" class="services" v-on:click="makeActive('services')">Services</a>
           <a href="#" class="contacts" v-on:click="makeActive('contacts')">Contact</a>
         </nav>
       </header>
-      
+
       <p>You chose <b>{{active}}</b></p>
       <div id="content-container">
         <section id="home" v-if="active === 'home'">
           home
         </section>
-        <section id="two-way-binding"  v-if="active === 'two-way-binding'">
-          two-way binding
+        <section id="order-form" class="order-form"
+          v-if="active === 'order-form'"
+          v-cloak
+          v-on:click="hideTooltip">
+
+          <div class="tooltip">
+            <input type="text" v-model="textContent" />
+          </div
+
+          <p v-on:click.stop="toggleTooltip">{{textContent}}</p>
         </section>
         <section id="projects" v-if="active === 'projects'">
           projects
