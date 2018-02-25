@@ -214,3 +214,57 @@ div.total span{
   padding-top: 12px;
   color:#6e7a7f;
 }
+
+/*-------------------------
+    List layout
+--------------------------*/
+
+#grid ul.list{
+    list-style: none;
+    width: 500px;
+    margin: 0 auto;
+    text-align: left;
+}
+
+#grid ul.list li{
+    border-bottom: 1px solid #ddd;
+    padding: 10px;
+    overflow: hidden;
+}
+
+#grid ul.list li img{
+    width:120px;
+    height:120px;
+    float:left;
+    border:none;
+}
+
+#grid ul.list li p{
+    margin-left: 135px;
+    font-weight: bold;
+    color:#6e7a7f;
+}
+
+/*-------------------------
+    Grid layout
+--------------------------*/
+
+#grid ul.grid{
+    list-style: none;
+    width: 570px;
+    margin: 0 auto;
+    text-align: left;
+}
+
+#grid ul.grid li{
+    padding: 2px;
+    float:left;
+}
+
+#grid ul.grid li img{
+    width:280px;
+    height:280px;
+    object-fit: cover;
+    display:block;
+    border:none;
+}
