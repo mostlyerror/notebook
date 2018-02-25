@@ -8,10 +8,9 @@
       <header>
         <nav v-bind:class="active" v-on:click.prevent>
           <a href="#" class="home" v-on:click="makeActive('home')">Home</a>
-          <a href="#" class="order-form"
-            v-on:click="makeActive('order-form')">Order Form</a>
-          <a href="#" class="projects" v-on:click="makeActive('projects')">Projects</a>
           <a href="#" class="services" v-on:click="makeActive('services')">Services</a>
+          <a href="#" class="search" v-on:click="makeActive('search')">Search</a>
+          <a href="#" class="projects" v-on:click="makeActive('projects')">Projects</a>
           <a href="#" class="contacts" v-on:click="makeActive('contacts')">Contact</a>
         </nav>
       </header>
@@ -21,22 +20,24 @@
         <section id="home" v-if="active === 'home'">
           home
         </section>
-        <section id="order-form" class="order-form"
-          v-if="active === 'order-form'"
-          v-cloak
-          v-on:click="hideTooltip">
-
-          <div class="tooltip">
-            <input type="text" v-model="textContent" />
-          </div
-
-          <p v-on:click.stop="toggleTooltip">{{textContent}}</p>
+        <section id="services" class="services" v-if="active === 'services'">
+          <form v-cloak>
+            <h1>Services</h1>
+            <ul>
+              <li v-for="service in services" v-on:click="toggleActive(service)" v-bind:class="{ 'active': service.active }">
+                {{service.name}} <span>{{service.price | currency}}</span>
+              </li>
+            </ul>
+            <div class="total">
+              Total: <span>{{total() | currency}}</span>
+            </div>
+          </form>
+        </section>
+        <section id="search" v-if="active === 'search'">
+          <h1>Search</h1>
         </section>
         <section id="projects" v-if="active === 'projects'">
           projects
-        </section>
-        <section id="services" v-if="active === 'services'">
-          services
         </section>
         <section id="contacts" v-if="active === 'contacts'">
           contacts
