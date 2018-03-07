@@ -1,0 +1,8 @@
+// Jest Snapshot v1, https://goo.gl/fbAQLP
+
+exports[`handler the response should contain a \`name\` key 1`] = `
+Object {
+  "body": "{\\"name\\":\\"mocked-name\\"}",
+  "statusCode": 200,
+}
+`;

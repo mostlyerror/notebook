@@ -1,0 +1,16 @@
+service: serverless-name-generator
+
+provider:
+  name: aws
+  runtime: nodejs6.10
+
+plugins:
+  - serverless-offline
+
+functions:
+  generate:
+    handler: handler.handler
+    events:
+      - http:
+          path: generate
+          method: get
