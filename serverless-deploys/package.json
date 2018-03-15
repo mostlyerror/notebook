@@ -4,7 +4,7 @@
   "description": "",
   "main": "index.js",
   "scripts": {
-    "test": "jest",
+    "test": "NODE_ENV=test jest",
     "serve": "serverless offline start"
   },
   "author": "",
@@ -15,6 +15,7 @@
     "serverless-offline": "^3.18.0"
   },
   "dependencies": {
+    "npm": "^5.7.1",
     "unique-names-generator": "^1.0.13"
   }
 }
