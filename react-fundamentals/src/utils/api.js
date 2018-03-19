@@ -49,12 +49,12 @@ function getUserData (player) {
 }
 
 function sortPlayers (players) {
-  player.sort(function (a,b) {
+  players.sort(function (a,b) {
     return b.score - a.score;
   })
 }
 
-module.exports = {
+export default {
   battle: function (players) {
     return axios.all(players.map(getUserData))
       .then(sortPlayers)
@@ -65,7 +65,6 @@ module.exports = {
     window.encodeURI('https://api.github.com/search/repositories?q=stars:>1+language:'+
     language + '&sort=stars&order=desc&type=Repositories');
 
-    return axios.get(encodedURI)
-
+    return axios.get(encodedURI);
   }
 };
