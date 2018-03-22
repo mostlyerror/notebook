@@ -1,7 +1,0 @@
-aws lambda create-function \
---region us-east-1 \
---function-name DiscoverMovies \
---zip-file fileb://./deployment.zip \
---runtime go1.x \
---role arn:aws:iam::025560089245:role/lambda-administrator \
---handler main
