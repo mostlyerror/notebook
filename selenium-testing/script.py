@@ -12,7 +12,7 @@ class PacStagingLogin(unittest.TestCase):
         chrome_options.add_argument('--no-sandbox')
         chrome_options.add_argument('--window-size=1420,1080')
         chrome_options.add_argument('--disable-gpu')
-        self.driver = webdriver.Chrome(chrome_options=chrome_options)
+        self.driver = webdriver.Chrome(options=chrome_options)
 
     def test_login(self):
         driver = self.driver
@@ -22,17 +22,14 @@ class PacStagingLogin(unittest.TestCase):
         password_input_field = driver.find_element_by_xpath('//*[@id="app"]/div/div/form/div[1]/div[2]/input')
         email_input_field.send_keys('ben@therightplace.com')
         password_input_field.send_keys('Vision123!')
-        # submit_btn = driver.find_element_by_xpath('//*[@id="app"]/div/div/form/div[2]/button')
-        # submit_btn.click()
         password_input_field.send_keys(Keys.RETURN)
         try:
-            # WebDriverWait(driver, 6).until(expected_conditions.url_changes('https://pac.staging.therightplace.com/referrals/active'))
-            # assert "Avondale" in driver.page_source
-            el = WebDriverWait(driver,10).until(
+            el = WebDriverWait(driver, 4).until(
                 expected_conditions.presence_of_element_located((By.XPATH, '//*[@id="page"]/div[1]/div[1]/div[1]/a'))
                 )
         finally:
-            driver.quit()
+            # driver.quit()
+        assert "Avondale" in driver.page_source
 
     def tearDown(self):
         self.driver.close()
