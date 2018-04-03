@@ -24,12 +24,16 @@ class PacStagingLogin(unittest.TestCase):
         password_input_field.send_keys('Vision123!')
         password_input_field.send_keys(Keys.RETURN)
         try:
-            el = WebDriverWait(driver, 4).until(
-                expected_conditions.presence_of_element_located((By.XPATH, '//*[@id="page"]/div[1]/div[1]/div[1]/a'))
-                )
+            el = WebDriverWait(driver, 4).until(expected_conditions.presence_of_element_located((By.XPATH, '//*[@id="page"]/div[1]/div[1]/div[1]/a')))
         finally:
             # driver.quit()
-        assert "Avondale" in driver.page_source
+            pass
+
+        assert "/referrals/active" in driver.current_url
+        create_referral_btn = driver.find_element_by_xpath('//*[@id="page"]/div[3]/div[1]/div[1]/button/span')
+        create_referral_btn.click()
+        assert "referrals/new" in driver.current_url
+
 
     def tearDown(self):
         self.driver.close()
