@@ -10,10 +10,12 @@ defmodule PlateSlateWeb.Schema do
   use Absinthe.Schema
 
   query do
-    # <<Ignore this for now>>
+    field :menu_items, list_of(:menu_item)
   end
 
   object :menu_item do
-    # <<We'll add fields soon>>
+    field :id, :id
+    field :name, :string
+    field :description, :string
   end
 end
