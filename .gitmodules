@@ -1,0 +1,3 @@
+[submodule "react-coin"]
+	path = react-coin
+	url = https://github.com/udilia/learn-react-by-building-a-web-app.git
