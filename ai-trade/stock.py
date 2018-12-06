@@ -2,6 +2,7 @@
 
 import os
 import pandas as pd
+import matplotlib.pyplot as plt
 
 def symbol_to_path(symbol, base_dir="data"):
     """Return CSV file path given ticker symbol."""
@@ -28,16 +29,16 @@ def get_data(symbols, dates):
 
     return df
 
+def plot_data(df):
+    df.plot()
+    plt.show()
 
 def test_run():
     dates = pd.date_range('2010-01-01', '2010-12-31')
     symbols = ['GOOG', 'IBM', 'GLD']
     df = get_data(symbols, dates)
-    # print df.ix['2010-01-01':'2010-01-31']
-    #print df['GOOG']
-    #print df[['IBM', 'GLD']]
-    df.plot()
-    print df.ix['2010-03-10':'2010-03-15', ['SPY', 'IBM']]
+    df = df.ix['2010-03-10':'2010-03-15', ['SPY', 'IBM']]
+    plot_data(df)
 
 
 if __name__ == "__main__":
