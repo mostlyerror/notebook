@@ -1,3 +1,6 @@
 [submodule "react-coin"]
 	path = react-coin
 	url = https://github.com/udilia/learn-react-by-building-a-web-app.git
+[submodule "compendium"]
+	path = compendium
+	url = https://github.com/mostlyerror/compendium
